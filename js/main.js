@@ -35,6 +35,7 @@
     table.addNewPerson(name, surname, age);
   }
 
+  //class table
   function Table() {
     this._table = null;
     this._users = null;
@@ -70,7 +71,7 @@
       var newRow = $("<tr></tr>");
       newRow.append($("<td></td>").text(newPerson.getName()));
       newRow.append($("<td></td>").text(newPerson.getSurname()));
-      newRow.append($("<td></td>").text(newPerson.getage()));
+      newRow.append($("<td></td>").text(newPerson.getAge()));
       newRow.append($("<td></td>"));
       newRow.append($("<td></td>"));
 
