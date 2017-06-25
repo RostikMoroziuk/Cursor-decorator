@@ -10,9 +10,9 @@
 }
 
 body,
-.btn-add,
-.btn-add:hover,
-.btn-add:focus,
+.btn,
+.btn:hover,
+.btn:focus,
 .form-control {
   color: white;
 }
@@ -31,6 +31,7 @@ body {
   width: 85%;
   margin: 50px auto;
 }
+
 .main {
   width: 80%;
   margin: 0 auto 50px;
@@ -47,13 +48,13 @@ body {
   margin-bottom: 30px
 }
 
-.btn-add,
-.btn-add:focus {
+.btn,
+.btn:focus {
   align-self: flex-end;
   background-color: #269cf3;
 }
 
-.btn-add:hover,
+.btn:hover,
 .dropdown-menu,
 .table tr {
   background-color: #273142;
@@ -64,7 +65,7 @@ body {
 }
 
 .inputs .form-group,
-.inputs .age{
+.inputs .age {
   width: 16.7%;
   padding-right: 5px;
 }
@@ -86,6 +87,10 @@ body {
 
 .table th {
   width: 16.6%;
+}
+
+.table>tbody>tr>td {
+  vertical-align: middle;
 }
 
 .table tbody tr:hover {

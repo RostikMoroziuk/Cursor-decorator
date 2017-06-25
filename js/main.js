@@ -72,8 +72,11 @@
       newRow.append($("<td></td>").text(newPerson.getName()));
       newRow.append($("<td></td>").text(newPerson.getSurname()));
       newRow.append($("<td></td>").text(newPerson.getAge()));
-      newRow.append($("<td></td>"));
-      newRow.append($("<td></td>"));
+      var getDiscount = $("<button></button>").addClass("btn").attr("data-discount", "data-discount").text("Get discount");
+      var getBonus = $("<button></button>").addClass("btn").attr("data-bonus", "data-bonus").text("Get bonus");
+      console.log(getDiscount, getBonus)
+      newRow.append($("<td></td>").append(getDiscount));
+      newRow.append($("<td></td>").append(getBonus));
 
       return newRow;
     }
