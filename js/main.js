@@ -82,14 +82,44 @@
       discountBtn.click(function () {
         var userId = +$(this).closest("[data-id]").attr("data-id");
         var user = table.getUsers()[userId];
-        var discount = getDiscount(user);
+        var discounts = getDiscount(user);
+        addModal(discounts);
       });
 
-      var bonusBtn = $("<button></button>").addClass("btn").attr("data-bonus", "data-bonus").text("Get bonus");
+      var bonusBtn = $("<button></button>").addClass("btn").attr({
+        "data-bonus": "data-bonus",
+        "data-toggle": "modal",
+        "data-target": "#discountModal"
+      }).text("Get bonus");
+      bonusBtn.click(function () {
+        var userId = +$(this).closest("[data-id]").attr("data-id");
+        var user = table.getUsers()[userId];
+        var bonus = getBonus(user);
+        console.log(bonus);
+        addModal(bonus);
+      });
       newRow.append($("<td></td>").append(discountBtn));
       newRow.append($("<td></td>").append(bonusBtn));
 
       return newRow;
+
+      function addModal(data) {
+        var modal = $(".user-info tbody");
+        //Clear 
+        modal.empty();
+        for (var i = 0; i < data.length; i++) {
+          modal.append(renderDiscount(data[i].type, data[i].value))
+        }
+      }
+
+      function renderDiscount(type, value) {
+        var row = $("<tr></tr>");
+        var name = $("<td></td>").text(type);
+        var val = $("<td></td>").text(value);
+        row.append(name);
+        row.append(val);
+        return row;
+      }
     }
   }
 
