@@ -114,6 +114,14 @@ th:last-child {
   border-radius: 0 10px 0 0;
 }
 
+.modal {
+  color: #1b2431;
+}
+
+.modal td {
+  padding: 5px 10px;
+}
+
 .footer {
   padding: 20px;
 }

@@ -1,6 +1,7 @@
 (function () {
   //Add all require events
   function addEvents() {
+    //add new user
     $("#person").submit(validateForm);
   }
 
@@ -27,7 +28,7 @@
     }
 
     //validate age
-    if(isNaN(+age)) {
+    if (isNaN(+age)) {
       alert("Not correct age");
       return;
     }
@@ -58,7 +59,7 @@
     this.renderTable(newPerson);
   }
 
-  Table.prototype.getUsers = function() {
+  Table.prototype.getUsers = function () {
     return this._users;
   }
 
@@ -72,11 +73,21 @@
       newRow.append($("<td></td>").text(newPerson.getName()));
       newRow.append($("<td></td>").text(newPerson.getSurname()));
       newRow.append($("<td></td>").text(newPerson.getAge()));
-      var getDiscount = $("<button></button>").addClass("btn").attr("data-discount", "data-discount").text("Get discount");
-      var getBonus = $("<button></button>").addClass("btn").attr("data-bonus", "data-bonus").text("Get bonus");
-      console.log(getDiscount, getBonus)
-      newRow.append($("<td></td>").append(getDiscount));
-      newRow.append($("<td></td>").append(getBonus));
+      //get discount button
+      var discountBtn = $("<button></button>").addClass("btn").attr({
+        "data-discount": "data-discount",
+        "data-toggle": "modal",
+        "data-target": "#discountModal"
+      }).text("Get discount");
+      discountBtn.click(function () {
+        var userId = +$(this).closest("[data-id]").attr("data-id");
+        var user = table.getUsers()[userId];
+        var discount = getDiscount(user);
+      });
+
+      var bonusBtn = $("<button></button>").addClass("btn").attr("data-bonus", "data-bonus").text("Get bonus");
+      newRow.append($("<td></td>").append(discountBtn));
+      newRow.append($("<td></td>").append(bonusBtn));
 
       return newRow;
     }

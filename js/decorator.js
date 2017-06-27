@@ -3,19 +3,33 @@ var getDiscount = (function () {
   return function (user) {
     var now = new Date();
     var userDiscount = user.getDiscount();
-    console.log("discount", userDiscount);
+    
+    var modal = $(".user-discount tbody");
+    //Clear 
+    modal.empty();
+
     //total discount in percent
     var discount = userDiscount.globalDiscount;
+    modal.append(renderDiscount("Global Discount", userDiscount.globalDiscount + "%"));
 
     if (isNight(now.getHours())) {
       discount += userDiscount.nightDiscount;
+      modal.append(renderDiscount("Night Discount", userDiscount.nightDiscount + "%"));
     }
 
     if (isWeekend(now.getDay())) {
       discount += userDiscount.weekendDiscount;
+      modal.append(renderDiscount("Weekend Discount", userDiscount.weekendDiscount + "%"));
     }
 
-    return calcTotalDiscount();
+    //Total price
+    modal.append(renderDiscount("Total Price", user.getOrdersTotalPrice() + "$"));
+
+    //Total discount
+    var totalDiscount = calcTotalDiscount(discount, user.getOrdersTotalPrice() );
+    modal.append(renderDiscount("Total Discount", totalDiscount + "$"));
+
+    return totalDiscount;
   }
 
   function isNight(hour) {
@@ -24,13 +38,24 @@ var getDiscount = (function () {
   }
 
   function isWeekend(day) {
-    // 5th and 6th
-    return day >= 5;
+    var SATURDAY = 6;
+    var SUNDAY = 0;
+    // 6th and 0th
+    return day == SUNDAY || day == SATURDAY;
   }
 
   //calculate total discount in money
   function calcTotalDiscount(percentDiscount, totalPrice) {
     return (totalPrice * percentDiscount / 100).toFixed(2);
+  }
+
+  function renderDiscount(type, value) {
+    var row = $("<tr></tr>");
+    var name = $("<td></td>").text(type);
+    var val= $("<td></td>").text(value);
+    row.append(name);
+    row.append(val);
+    return row;
   }
 })();
 
@@ -45,7 +70,6 @@ var getBonus = (function () {
     var bonus = user.getBonus();
     //hours since last session
     var hoursSinceLastSession = (now - user.getLastVisitDate()) / MS_IN_HOUR;
-    console.log("hours", hoursSinceLastSession);
     //if user was online in last 10 day
     bonus += daysBonus(hoursSinceLastSession);
     //orderCount bonus

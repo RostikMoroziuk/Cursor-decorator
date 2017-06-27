@@ -24,8 +24,6 @@ function User(name, surname, age) {
   //orders
   this._ordersCount = parseInt(Math.random() * 10);
   this._ordersTotalPrice = parseInt(Math.random() * 100);
-
-  console.log("user", this);
 }
 
 User.prototype.getName = function () {
